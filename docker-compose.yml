@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - ROOT_PASSWORD=$ROOT_PASSWORD
+      - DATABASE=$DATABASE
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+  
+  bycoders-backend:
+    depends_on:
+      - mysqldb
+    build: ./bycoders-backend
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - 6000:6000
+    environment:
+      - DB_HOST=mysqldb
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DATABASE
+      - DB_PORT=3306
+      - CLIENT_URL=$CLIENT_URL
+    networks:
+      - backend
+      - frontend
+
+  bycoders-frontend:
+    depends_on:
+      - bycoders-backend
+    build:
+      context: ./bycoders-frontend
+      args:
+        - BACKEND_URL=$BACKEND_URL
+    ports:
+      - 3000:3000
+    networks:
+      - frontend  
+
+volumes: 
+  db:
+
+networks:
+  backend:
+  frontend:
