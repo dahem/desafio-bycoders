@@ -3,13 +3,13 @@ version: '3.8'
 services:
   mysqldb:
     image: mysql:5.7
-    restart: unless-stopped
-    env_file: ./.env
     environment:
-      - ROOT_PASSWORD=$ROOT_PASSWORD
-      - DATABASE=$DATABASE
+      - MYSQL_ROOT_PASSWORD=bycores
+      - MYSQL_DATABASE=db_bycores
     ports:
-      - 3306:3306
+      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
       - db:/var/lib/mysql
     networks:
@@ -19,20 +19,21 @@ services:
     depends_on:
       - mysqldb
     build: ./bycoders-backend
-    restart: unless-stopped
-    env_file: ./.env
     ports:
-      - $BACKEND_PORT:$BACKEND_PORT
+      - "6000:6000"
+    expose:
+      - "6000"
     environment:
       - DB_HOST=mysqldb
-      - DB_USER=$DB_USER
-      - DB_PASSWORD=$DB_PASSWORD
-      - DB_NAME=$DATABASE
-      - DB_PORT=$DB_PORT
-      - CLIENT_URL=$CLIENT_URL
+      - DB_USER=ROOT
+      - DB_PASSWORD=bycores
+      - DB_NAME=db_bycores
+      - DB_PORT=3306
+    
     networks:
       - backend
       - frontend
+
 
   bycoders-frontend:
     depends_on:
@@ -40,12 +41,13 @@ services:
     build:
       context: ./bycoders-frontend
       args:
-        - BACKEND_URL=$BACKEND_URL
+        - BACKEND_URL=http://127.0.0.1:6000/api
     ports:
-      - $FRONTEND_PORT:$FRONTEND_PORT
+      - "3000:3000"
+    expose:
+      - "3000"
     networks:
       - frontend  
-
 volumes: 
   db:
 
