@@ -1,4 +1,5 @@
 import React from "react";
+import './style.css';
 
 function Avatar(props) {
   const getInitials = (name) => {
@@ -7,8 +8,8 @@ function Avatar(props) {
     return initials;
   };
   return (
-    <div className="avatar">
-      {props.src ? <img src={props.src} alt={props.alt} /> : <span>{getInitials(props.name)}</span>}
+    <div className=" center avatar">
+      {<span>{getInitials(props.name)}</span>}
     </div>
   );
 }

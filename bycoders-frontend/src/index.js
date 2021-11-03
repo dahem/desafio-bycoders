@@ -10,6 +10,8 @@ ReactDOM.render(
       domain={process.env.REACT_APP_OAUTH_DOMAIN}
       clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
       redirectUri={window.location.origin}
+      audience={process.env.REACT_APP_OAUTH_AUDIENCE}
+      scope="openid profile email"
     >
     <App />
     </Auth0Provider>

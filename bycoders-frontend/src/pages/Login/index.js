@@ -6,8 +6,9 @@ function Login() {
   const { loginWithPopup } = useAuth0();
 
   return (
-    <div className="fit center">
-      <Button onClick={() => loginWithPopup()} label="Login" />
+    <div className="fit center" style={{ flexDirection: 'column' }}>
+      <h1>Bycoders Login</h1>
+      <Button onClick={() => loginWithPopup()} label="Entrar" />
     </div>
   );
 };

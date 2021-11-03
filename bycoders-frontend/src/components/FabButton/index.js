@@ -1,10 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './style.css';
 
 function FabButton(props) {
   return (
     <button className="fab-button" {...props}>
-      <FontAwesomeIcon icon={props.icon} />
+      {props.children}
     </button>
   );
 }

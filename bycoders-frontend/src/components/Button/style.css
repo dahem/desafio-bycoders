@@ -23,6 +23,17 @@
 .button:hover {
   color: white;
   text-decoration: none;
-  background-color: blueviolet;
+  background-color: rgb(189, 82, 157);
   transition: all 0.5s;
+  
+}
+
+.icon {
+  animation:spin 4s linear infinite;
+}
+
+@keyframes spin { 
+  100% { 
+    transform:rotate(360deg); 
+  } 
 }

@@ -2,19 +2,21 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Avatar from '../../components/Avatar';
 import FabButton from '../../components/FabButton';
+import { FaSignOutAlt } from 'react-icons/fa';
 import './style.css';
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const { user, logout } = useAuth0();
-  console.log(user);
+  
   return (
     <div className="navbar">
       <div />
-      <div class="profile">
-        <div>{user.name}</div>
-        <Avatar src={user.picture} name={user.name} />
-        <FabButton class="logout-btn" icon={faSignOutAlt} onClick={() => logout()} />
+      <div className="profile">
+        <div className="label">{user.name}</div>
+        <Avatar style={{ marginLeft: 10 }} src={user.picture} name={user.name} />
+        <FabButton style={{ marginLeft: 10 }} onClick={() => logout()}>
+          <FaSignOutAlt/>
+        </FabButton>
       </div>
 
     </div>
